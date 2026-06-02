@@ -1,0 +1,55 @@
+{
+  "manifest_version": 3,
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "schibsted-personvernskjold@norderhaug.dev",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
+  },
+  "name": "Schibsted Personvernskjold",
+  "version": "1.0.0",
+  "description": "Nøytraliserer Schibsteds sporings- og personaliseringssignaler. 100 % lokal, samler ingen data.",
+  "minimum_chrome_version": "111",
+  "permissions": ["cookies", "activeTab", "scripting"],
+  "host_permissions": [
+    "*://*.vg.no/*",
+    "*://*.e24.no/*",
+    "*://*.aftenposten.no/*",
+    "*://*.bt.no/*",
+    "*://*.aftenbladet.no/*",
+    "*://*.aftonbladet.se/*",
+    "*://*.svd.se/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "scripts": ["config.js", "background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.vg.no/*",
+        "*://*.e24.no/*",
+        "*://*.aftenposten.no/*",
+        "*://*.bt.no/*",
+        "*://*.aftenbladet.no/*",
+        "*://*.aftonbladet.se/*",
+        "*://*.svd.se/*"
+      ],
+      "js": ["config.js", "storage-shield.js"],
+      "run_at": "document_start",
+      "world": "MAIN",
+      "all_frames": false
+    }
+  ],
+  "icons": {
+    "16": "icon.svg",
+    "48": "icon.svg",
+    "128": "icon.svg"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Schibsted Personvernskjold"
+  }
+}
